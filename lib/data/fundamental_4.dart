@@ -1,4 +1,5 @@
 import '../models/topic.dart';
+import 'quiz_f4.dart';
 
 const fundamental4Topic = Topic(
   id: 'fundamental-4',
@@ -112,6 +113,11 @@ const fundamental4Topic = Topic(
           'Ambos casos permiten entrar al sistema sin credenciales válidas, lo que muestra la importancia de aplicar los parches del fabricante y de deshabilitar servicios innecesarios, como telnet.',
         ),
       ],
+    ),
+    Topic(
+      id: 'f4-examen',
+      title: 'Examen de repaso',
+      quiz: quizF4,
     ),
   ],
 );

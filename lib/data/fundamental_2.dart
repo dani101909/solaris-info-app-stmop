@@ -1,4 +1,5 @@
 import '../models/topic.dart';
+import 'quiz_f2.dart';
 
 const fundamental2Topic = Topic(
   id: 'fundamental-2',
@@ -106,6 +107,11 @@ const fundamental2Topic = Topic(
           'Solaris cumple este modelo. Sus LWP se planifican de forma independiente y corren en paralelo en varios procesadores. Sus hilos de interrupción y sus primitivas de sincronización están diseñados para ese entorno.',
         ),
       ],
+    ),
+    Topic(
+      id: 'f2-examen',
+      title: 'Examen de repaso',
+      quiz: quizF2,
     ),
   ],
 );

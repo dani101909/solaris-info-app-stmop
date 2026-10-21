@@ -1,4 +1,5 @@
 import '../models/topic.dart';
+import 'quiz_f1.dart';
 
 const fundamental1Topic = Topic(
   id: 'fundamental-1',
@@ -196,6 +197,11 @@ const fundamental1Topic = Topic(
           ],
         ),
       ],
+    ),
+    Topic(
+      id: 'f1-examen',
+      title: 'Examen de repaso',
+      quiz: quizF1,
     ),
   ],
 );

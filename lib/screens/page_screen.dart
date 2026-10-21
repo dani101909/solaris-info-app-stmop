@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pdfrx/pdfrx.dart' show PdfViewer, PdfViewerParams;
 import '../models/topic.dart';
 import '../widgets/app_drawer.dart';
+import 'quiz_screen.dart';
 
 class PageScreen extends StatelessWidget {
   final Topic topic;
@@ -9,18 +10,30 @@ class PageScreen extends StatelessWidget {
 
   const PageScreen({super.key, required this.topic, required this.onSelect});
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Solaris')),
       drawer: AppDrawer(selectedId: topic.id, onSelect: onSelect),
-      body: topic.pdfAsset == null
-          ? _content(context)
-          : _pdf(context, topic.pdfAsset!),
+      body: _body(context),
     );
   }
 
-    Widget _content(BuildContext context) {
+  Widget _body(BuildContext context) {
+    if (topic.hasQuiz) {
+      return QuizScreen(
+        key: ValueKey(topic.id),
+        title: topic.title,
+        questions: topic.quiz,
+      );
+    }
+    if (topic.pdfAsset != null) {
+      return _pdf(context, topic.pdfAsset!);
+    }
+    return _content(context);
+  }
+
+  Widget _content(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
@@ -45,14 +58,14 @@ class PageScreen extends StatelessWidget {
           ),
         ),
         Expanded(
-  child: PdfViewer.asset(
-    asset,
-    params: PdfViewerParams(
-      errorBannerBuilder: (context, error, stackTrace, documentRef) =>
-          Center(child: Text('$error')),
-    ),
-  ),
-),
+          child: PdfViewer.asset(
+            asset,
+            params: PdfViewerParams(
+              errorBannerBuilder: (context, error, stackTrace, documentRef) =>
+                  Center(child: Text('$error')),
+            ),
+          ),
+        ),
       ],
     );
   }
