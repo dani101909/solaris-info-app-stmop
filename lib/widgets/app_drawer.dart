@@ -48,9 +48,14 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildItem(BuildContext context, Topic topic) {
+  Widget _buildItem(BuildContext context, Topic topic, {int depth = 0}) {
+    final padding = depth == 0
+        ? null
+        : EdgeInsets.only(left: 16.0 + 16 * depth, right: 16);
+
     if (!topic.hasSubtopics) {
       return ListTile(
+        contentPadding: padding,
         title: Text(topic.title),
         selected: topic.id == selectedId,
         onTap: () => _select(context, topic),
@@ -58,18 +63,20 @@ class AppDrawer extends StatelessWidget {
     }
 
     return ExpansionTile(
+      tilePadding: padding,
       title: Text(topic.title),
       subtitle: topic.subtitle == null ? null : Text(topic.subtitle!),
-      initiallyExpanded: topic.subtopics.any((t) => t.id == selectedId),
+      initiallyExpanded: _containsSelected(topic),
       children: [
         for (final sub in topic.subtopics)
-          ListTile(
-            contentPadding: const EdgeInsets.only(left: 32, right: 16),
-            title: Text(sub.title),
-            selected: sub.id == selectedId,
-            onTap: () => _select(context, sub),
-          ),
+          _buildItem(context, sub, depth: depth + 1),
       ],
+    );
+  }
+
+  bool _containsSelected(Topic topic) {
+    return topic.subtopics.any(
+      (t) => t.id == selectedId || _containsSelected(t),
     );
   }
 

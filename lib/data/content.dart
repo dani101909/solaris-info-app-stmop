@@ -7,9 +7,8 @@ import 'fundamental_3.dart';
 import 'fundamental_4.dart';
 import 'historia.dart';
 import 'conclusion.dart';
+import 'conclusiones.dart';
 import 'referencias.dart';
-
-const _pending = [ParagraphBlock('Contenido pendiente.')];
 
 const List<Topic> appTopics = [
   inicioTopic,
@@ -24,6 +23,6 @@ const List<Topic> appTopics = [
   Topic(id: 'pdf-3', title: 'Actividad Fundamental 3', pdfAsset: 'assets/pdfs/af_3.pdf'),
   Topic(id: 'pdf-4', title: 'Actividad Fundamental 4', pdfAsset: 'assets/pdfs/af_4.pdf'),
   conclusionTopic,
-  Topic(id: 'conclusiones', title: 'Conclusiones', blocks: _pending),
+  conclusionesTopic,
   referenciasTopic,
 ];
